@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 222991446024258040}
   - component: {fileID: 114285698091290960}
   m_Layer: 0
-  m_Name: DropPoints
+  m_Name: PointsPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

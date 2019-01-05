@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4869342245573698}
   - component: {fileID: 212097622408907284}
   m_Layer: 0
-  m_Name: BlackBlock
+  m_Name: BlackBlockPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -84,5 +84,5 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 2
   m_SpriteSortPoint: 0

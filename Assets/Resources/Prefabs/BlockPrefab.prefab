@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 114985531006755106}
   - component: {fileID: 212725763120830486}
   m_Layer: 0
-  m_Name: Block
+  m_Name: BlockPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,7 +54,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1189116408774828}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.558294, y: 0.014706373, z: 0}
+  m_LocalPosition: {x: 0.5, y: 1.79, z: 0}
   m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_Children:
   - {fileID: 224768471090700812}
@@ -95,7 +95,7 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
 --- !u!33 &33186220138376004
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -227,11 +227,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7c5065c6bdd32746a014ffd890cc49c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scriptObject: {fileID: 1011074426453858, guid: 58e5da5269f0bf64b97c6b45eba90cb1,
-    type: 2}
   x: 0
   y: 0
   currentNumberText: {fileID: 114703394616786972}
+  drop: 0
+  descriptionsBlocks:
+    block2: {fileID: 11400000, guid: d6f7a897f14e5eb4e93d3f903a9d072a, type: 2}
+    block4: {fileID: 11400000, guid: 8cdf3550780c73b49ae404ea198ae3ad, type: 2}
+    block8: {fileID: 11400000, guid: 108b2bdc72e34004ab88784687bada53, type: 2}
+    block16: {fileID: 11400000, guid: 2f9d4036cd2af0542881376e2fdb5411, type: 2}
+    block32: {fileID: 11400000, guid: 5ba9d8c9279fd7447a9c7bb860fd0937, type: 2}
+    block64: {fileID: 11400000, guid: 6b3bb76a10acb704182b0779f3f828d4, type: 2}
+    block128: {fileID: 11400000, guid: e25d89102239af6498cdc7f70351fb1a, type: 2}
+    block256: {fileID: 11400000, guid: 37a86d42805456a4a90d4f2bb3f9fbc6, type: 2}
+    block512: {fileID: 11400000, guid: 7f9cdfcfa4b2f5d4eb60167071b326a6, type: 2}
+    block1024: {fileID: 11400000, guid: b52af59d83b1b0b47979f5262d0bd622, type: 2}
+    block2048: {fileID: 11400000, guid: cf4e9d6757daa9247aa8d672a86b99cf, type: 2}
+  targetBlock: {fileID: 0}
 --- !u!212 &212725763120830486
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -266,7 +278,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: bdb5f88b06145b8448e1df0b838fc563, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -276,7 +288,7 @@ SpriteRenderer:
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
+  m_MaskInteraction: 2
   m_SpriteSortPoint: 0
 --- !u!222 &222711982125308232
 CanvasRenderer:

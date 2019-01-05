@@ -4,43 +4,50 @@ using UnityEngine;
 using TMPro;
 
 public class Block : MonoBehaviour {
-     public GameObject scriptObject;
-     public Squares square;
 
      #region PublicFields
 
      public int x, y;
      public TextMeshPro currentNumberText;
      public bool drop = false;
-     // public Color color2;
-     // public Color color4;
-     // public Color color8;
-     // public Color color16;
-     // public Color color32;
-     // public Color color64;
-     // public Color color128;
-     // public Color color256;
-     // public Color color512;
-     // public Color color1024;
 
-     // Для моего режима
-     //public int[] numbers = { 2,3, 4, 5, 6,7 };
-     //private int[] numbersForPlayer = {1, 2, 3, 4, 5, 6, 7};
+     [System.Serializable]
+     public class DescriptionsBlocks {
+          public DescriptionBlock block2;
+          public DescriptionBlock block4;
+          public DescriptionBlock block8;
+          public DescriptionBlock block16;
+          public DescriptionBlock block32;
+          public DescriptionBlock block64;
+          public DescriptionBlock block128;
+          public DescriptionBlock block256;
+          public DescriptionBlock block512;
+          public DescriptionBlock block1024;
+          public DescriptionBlock block2048;
+     }
 
-     // public int[] numbers = {2,4,8,16,32,64,128,256,512};
-     // private int[] numbersForPlayer = { 2, 4, 8, 16, 32, 64, 128, 256, 512 };
+     public int CurrentNumber {
+          get { return _currentNumber; }
+          set {
+               _currentNumber = value;
+               InitBlock(_currentNumber);
+          }
+     }
+
+     public DescriptionsBlocks descriptionsBlocks = new DescriptionsBlocks();
 
 
      #endregion
 
      #region PrivateFields
      [SerializeField]
-     public int currentNumber;
+     private int _currentNumber = 0;
      // private int currentNumber = 2;
      SpriteRenderer spriteRenderer;
      /// <summary>
      /// Блок, к которому будет лететь текущий блок, при схлопывании.
      /// </summary>
+     [SerializeField]
      private Block targetBlock = null;
      /// <summary>
      /// 
@@ -50,46 +57,14 @@ public class Block : MonoBehaviour {
      #endregion
 
      private void Awake() {
-          square = scriptObject.GetComponent<ScriptableObjects>().square[Random.Range(0, 9)];
           spriteRenderer = GetComponent<SpriteRenderer>();
-          spriteRenderer.color = square.color;
-          currentNumberText.text = square.number.ToString();
-          currentNumber = square.number;
-     }
-
-     // public void SetRandomCurrentNumber() {
-     //      int randItem = UnityEngine.Random.Range(0, numbersForPlayer.Length);
-     //      currentNumber = numbersForPlayer[randItem];
-     //      currentNumberText.text = currentNumber.ToString();
-     //      SetColor(currentNumber);
-     // }
-
-     // public void SetRandomCurrentNumberGrid() {
-     //      int randItem = UnityEngine.Random.Range(0, numbers.Length);
-     //      currentNumber = numbers[randItem];
-     //      currentNumberText.text = currentNumber.ToString();
-     //      SetColor(currentNumber);
-     // }
-
-     public void SetCurrentNumber(int currentNumber) {
-          this.currentNumber = currentNumber;
-          currentNumberText.text = currentNumber.ToString();
-          spriteRenderer.color = this.spriteRenderer.color; // Что это за строчка? // я понимаю это для проверки ?
-          // SetColor(currentNumber);
-     }
-
-     public int GetCurrentNumber() {
-          return currentNumber;
      }
 
      public void SetTargetBlock(Block targetBlock) {
-          if (this.targetBlock != null)
-               return;
-
           this.targetBlock = targetBlock;
      }
 
-     public Block GetTargetBlock(){
+     public Block GetTargetBlock() {
           return targetBlock;
      }
 
@@ -102,47 +77,48 @@ public class Block : MonoBehaviour {
           return nextCurrentNumber;
      }
 
-     // public void SetColor(int number) {
+     private void InitBlock(int number) {
 
-     //      switch (number) {
-     //           case 2:
-     //                spriteRenderer.color = color2;
-     //                break;
-     //           case 4:
-     //                spriteRenderer.color = color4;
+          currentNumberText.text = number.ToString();
 
-     //                break;
-     //           case 8:
-     //                spriteRenderer.color = color8;
+          switch (number) {
 
-     //                break;
-     //           case 16:
-     //                spriteRenderer.color = color16;
+               case 2:
+                    spriteRenderer.color = descriptionsBlocks.block2.color;
+                    break;
 
-     //                break;
-     //           case 32:
-     //                spriteRenderer.color = color32;
+               case 4:
+                    spriteRenderer.color = descriptionsBlocks.block4.color;
+                    break;
 
-     //                break;
-     //           case 64:
-     //                spriteRenderer.color = color64;
+               case 8:
+                    spriteRenderer.color = descriptionsBlocks.block8.color;
+                    break;
+               case 16:
+                    spriteRenderer.color = descriptionsBlocks.block16.color;
+                    break;
+               case 32:
+                    spriteRenderer.color = descriptionsBlocks.block32.color;
+                    break;
+               case 64:
+                    spriteRenderer.color = descriptionsBlocks.block64.color;
+                    break;
+               case 128:
+                    spriteRenderer.color = descriptionsBlocks.block128.color;
+                    break;
+               case 256:
+                    spriteRenderer.color = descriptionsBlocks.block256.color;
+                    break;
+               case 512:
+                    spriteRenderer.color = descriptionsBlocks.block512.color;
+                    break;
+               case 1024:
+                    spriteRenderer.color = descriptionsBlocks.block1024.color;
+                    break;
+               case 2048:
+                    spriteRenderer.color = descriptionsBlocks.block2048.color;
+                    break;
 
-     //                break;
-     //           case 128:
-     //                spriteRenderer.color = color128;
-
-     //                break;
-     //           case 256:
-     //                spriteRenderer.color = color256;
-
-     //                break;
-     //           case 512:
-     //                spriteRenderer.color = color512;
-     //                break;
-
-     //           case 1024:
-     //                spriteRenderer.color = color1024;
-     //                break;
-     //      }
-     // }
+          }
+     }
 }
