@@ -43,7 +43,7 @@ public class Block : MonoBehaviour {
      [SerializeField]
      private int _currentNumber = 0;
      // private int currentNumber = 2;
-     SpriteRenderer spriteRenderer;
+     // private SpriteRenderer spriteRenderer; // при рестарте выбивало ошибку, типа не инициализоровано
      /// <summary>
      /// Блок, к которому будет лететь текущий блок, при схлопывании.
      /// </summary>
@@ -56,9 +56,16 @@ public class Block : MonoBehaviour {
 
      #endregion
 
-     private void Awake() {
-          spriteRenderer = GetComponent<SpriteRenderer>();
-     }
+     // private void Awake() {
+     //      spriteRenderer = GetComponent<SpriteRenderer>();     // Первоначально было Awake, при рестарте выбивало ошибку, типа не инициализоровано
+     // }
+     // void Start() {
+     //      spriteRenderer = GetComponent<SpriteRenderer>(); // я пробовал так 
+     // }
+
+     // void OnEnable(){
+     //      spriteRenderer = GetComponent<SpriteRenderer>(); // и так, но не работает
+     // }
 
      public void SetTargetBlock(Block targetBlock) {
           this.targetBlock = targetBlock;
@@ -78,45 +85,47 @@ public class Block : MonoBehaviour {
      }
 
      private void InitBlock(int number) {
+         
 
           currentNumberText.text = number.ToString();
 
           switch (number) {
 
                case 2:
-                    spriteRenderer.color = descriptionsBlocks.block2.color;
+                    gameObject.GetComponent<SpriteRenderer>().color = descriptionsBlocks.block2.color; // так работает
                     break;
 
                case 4:
-                    spriteRenderer.color = descriptionsBlocks.block4.color;
+                    gameObject.GetComponent<SpriteRenderer>().color = descriptionsBlocks.block4.color;
+                    // spriteRenderer.color = descriptionsBlocks.block4.color; // было первоначально
                     break;
 
                case 8:
-                    spriteRenderer.color = descriptionsBlocks.block8.color;
+                    gameObject.GetComponent<SpriteRenderer>().color = descriptionsBlocks.block8.color;
                     break;
                case 16:
-                    spriteRenderer.color = descriptionsBlocks.block16.color;
+                    gameObject.GetComponent<SpriteRenderer>().color = descriptionsBlocks.block16.color;
                     break;
                case 32:
-                    spriteRenderer.color = descriptionsBlocks.block32.color;
+                    gameObject.GetComponent<SpriteRenderer>().color = descriptionsBlocks.block32.color;
                     break;
                case 64:
-                    spriteRenderer.color = descriptionsBlocks.block64.color;
+                    gameObject.GetComponent<SpriteRenderer>().color = descriptionsBlocks.block64.color;
                     break;
                case 128:
-                    spriteRenderer.color = descriptionsBlocks.block128.color;
+                    gameObject.GetComponent<SpriteRenderer>().color = descriptionsBlocks.block128.color;
                     break;
                case 256:
-                    spriteRenderer.color = descriptionsBlocks.block256.color;
+                    gameObject.GetComponent<SpriteRenderer>().color = descriptionsBlocks.block256.color;
                     break;
                case 512:
-                    spriteRenderer.color = descriptionsBlocks.block512.color;
+                    gameObject.GetComponent<SpriteRenderer>().color = descriptionsBlocks.block512.color;
                     break;
                case 1024:
-                    spriteRenderer.color = descriptionsBlocks.block1024.color;
+                    gameObject.GetComponent<SpriteRenderer>().color = descriptionsBlocks.block1024.color;
                     break;
                case 2048:
-                    spriteRenderer.color = descriptionsBlocks.block2048.color;
+                    gameObject.GetComponent<SpriteRenderer>().color = descriptionsBlocks.block2048.color;
                     break;
 
           }

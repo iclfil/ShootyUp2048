@@ -205,6 +205,7 @@ public class GameGrid : MonoBehaviour {
                               continue;
 
                          if (blocks[i, j].CurrentNumber == blocks[x, y].CurrentNumber) {
+                           
                               isMatchesFound = true;
                               curNumber += blocks[i, j].CurrentNumber;
                               GameObject block = blocks[i, j].gameObject;
@@ -238,7 +239,7 @@ public class GameGrid : MonoBehaviour {
           bool matchFoundRight = false;
 
           int countFoundBlocks = 0;
-          Block topBlock = null; // Илок выше нашего блока
+          Block topBlock = null; // Блок выше нашего блока
 
           for (int i = minX; i < maxX; i++) {
                for (int j = minY; j < maxY; j++) {
@@ -278,7 +279,7 @@ public class GameGrid : MonoBehaviour {
 
                               sumNumbers += blocks[i, j].CurrentNumber;
                               blocks[i, j].SetTargetBlock(blocks[x, y]);
-                              AnimationNumeralDown(i, j);
+                              // AnimationNumeralDown(i, j);
                          }
                     }
                }
@@ -324,6 +325,7 @@ public class GameGrid : MonoBehaviour {
                          continue;
 
                     GameObject gameObjectBlock = block.gameObject;
+                    AnimationNumeralDown(block.x, block.y);
                     blocks[block.x, block.y] = null;
                     Tween scaleTween = targetBlock.transform.DOScale(1.5f, 0.2f).SetLoops(2, LoopType.Yoyo);
                     targetBlock.drop = true;
@@ -403,6 +405,7 @@ public class GameGrid : MonoBehaviour {
           blocks[x, y].y = y;
           currentPlayerBlock = null;
           currentPlayerBlock = nextPlayerBlock;
+         
           Tween tweens = nextPlayerBlock.transform.DOMove(positionPlayerBlock.transform.position, gameEditor.speedNextBlock).SetSpeedBased().SetEase(Ease.Linear);
           yield return tweens.WaitForCompletion();
           nextPlayerBlock = CreateNextPlayerBlock();
@@ -470,65 +473,3 @@ public class GameGrid : MonoBehaviour {
 
      #endregion
 }
-
-
-
-
-
-
-
-// public class Basics : MonoBehaviour
-// {
-// 	public Transform redCube, greenCube, blueCube, purpleCube;
-
-// 	IEnumerator Start()
-// 	{
-// 		// Start after one second delay (to ignore Unity hiccups when activating Play mode in Editor)
-// 		yield return new WaitForSeconds(1);
-
-// 		// Let's move the red cube TO 0,4,0 in 2 seconds
-// 		redCube.DOMove(new Vector3(0,4,0), 2);
-
-// 		// Let's move the green cube FROM 0,4,0 in 2 seconds
-// 		greenCube.DOMove(new Vector3(0,4,0), 2).From();
-
-// 		// Let's move the blue cube BY 0,4,0 in 2 seconds
-// 		blueCube.DOMove(new Vector3(0,4,0), 2).SetRelative();
-
-// 		// Let's move the purple cube BY 6,0,0 in 2 seconds
-// 		// and also change its color to yellow.
-// 		// To change its color, we'll have to use its material as a target (instead than its transform).
-// 		purpleCube.DOMove(new Vector3(6,0,0), 2).SetRelative();
-// 		// Also, let's set the color tween to loop infinitely forward and backwards
-// 		purpleCube.GetComponent<Renderer>().material.DOColor(Color.yellow, 2).SetLoops(-1, LoopType.Yoyo);
-// 	}
-// }
-
-// using UnityEngine;
-// using System.Collections;
-// using DG.Tweening;
-
-// public class Sequences : MonoBehaviour
-// {
-// 	public Transform cube;
-// 	public float duration = 4;
-
-// 	IEnumerator Start()
-// 	{
-// 		// Start after one second delay (to ignore Unity hiccups when activating Play mode in Editor)
-// 		yield return new WaitForSeconds(1);
-
-// 		// Create a new Sequence.
-// 		// We will set it so that the whole duration is 6
-// 		Sequence s = DOTween.Sequence();
-// 		// Add an horizontal relative move tween that will last the whole Sequence's duration
-// 		s.Append(cube.DOMoveX(6, duration).SetRelative().SetEase(Ease.InOutQuad));
-// 		// Insert a rotation tween which will last half the duration
-// 		// and will loop forward and backward twice
-// 		s.Insert(0, cube.DORotate(new Vector3(0, 45, 0), duration / 2).SetEase(Ease.InQuad).SetLoops(2, LoopType.Yoyo));
-// 		// Add a color tween that will start at half the duration and last until the end
-// 		s.Insert(duration / 2, cube.GetComponent<Renderer>().material.DOColor(Color.yellow, duration / 2));
-// 		// Set the whole Sequence to loop infinitely forward and backwards
-// 		s.SetLoops(-1, LoopType.Yoyo);
-// 	}
-// }

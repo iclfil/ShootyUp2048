@@ -36,7 +36,7 @@ public class UIManager : MonoBehaviour {
 
           // UIPanelRestart.SetActive(false);
 
-          //Init();
+          Init();
      }
      public void UpdateSumPoint() {
           sumPoint.GetComponent<TextMeshPro>().text = intSumPoint.ToString();
@@ -53,6 +53,7 @@ public class UIManager : MonoBehaviour {
      }
 
      public void EndGame() {
+          levelPanel.SetActive(false);
           UpdateRecordPoint();
           SaveRecordPoints();
           DOTween.Kill("GameGrid");
@@ -73,9 +74,18 @@ public class UIManager : MonoBehaviour {
 
      public void StartGame() {
 
+          if(UIPanelRestart){  // если не уничтожить твины, работатет в backgroundeЫЫ
+          circleOutline.GetComponent<Image>().fillAmount = 1f;  
+          DOTween.Kill("RestartCircleColor");
+          DOTween.Kill("RestartCircleMove");
+          DOTween.Kill("RestartButton");
+         }
+
           // Отключаем меню.
+          UIPanelRestart.SetActive(false);
           menuPanel.SetActive(false);
           levelPanel.SetActive(true);
+          GamePanel.SetActive(true);
           gamePanel.StartGameGrid();
 
           //LoadRecordPoints();
