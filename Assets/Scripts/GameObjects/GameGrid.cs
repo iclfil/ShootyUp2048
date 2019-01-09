@@ -49,6 +49,8 @@ public class GameGrid : MonoBehaviour {
      private Block currentPlayerBlock;
      private Block nextPlayerBlock;
 
+     private bool firstBlockInGame;
+
      private int[] numbers = { 2, 4, 8, 16, 32, 64, 128 };
 
      #endregion
@@ -63,9 +65,10 @@ public class GameGrid : MonoBehaviour {
           }
      }
      public void StartGame() {
+          firstBlockInGame = true;
           InitGameGrid();
      }
-
+ 
      private void Update() {
           CheckBorder();
      }
@@ -94,9 +97,24 @@ public class GameGrid : MonoBehaviour {
 
      public Block CreatePlayerBlock() {          // создается первый блок (самый первый)
           Block block = InstantiateBlock(0, 0);
-          block.transform.position = new Vector3(positionPlayerBlock.transform.position.x, positionPlayerBlock.transform.position.y, 0);
-          int randItem = UnityEngine.Random.Range(0, numbers.Length);
-          block.CurrentNumber = numbers[randItem];
+
+          if(firstBlockInGame){
+               block.transform.position = new Vector3(10f, positionPlayerBlock.transform.position.y, 0);
+               block.transform.DOLocalMove(new Vector3(positionPlayerBlock.transform.position.x, positionPlayerBlock.transform.position.y, 0),0.5f);
+          }
+          else{
+               block.transform.position = new Vector3(positionPlayerBlock.transform.position.x, positionPlayerBlock.transform.position.y, 0);
+          }
+
+          
+          // block.transform.position = new Vector3(positionPlayerBlock.transform.position.x, positionPlayerBlock.transform.position.y, 0);
+          int randItem = UnityEngine.Random.Range(0, numbers.Length+1);
+
+          if(randItem == numbers.Length+1){
+
+          }
+          else block.CurrentNumber = numbers[randItem];
+         
           block.transform.SetParent(controlPanel.transform);
           return block;
      }
@@ -106,7 +124,17 @@ public class GameGrid : MonoBehaviour {
           block.transform.localScale = new Vector3(0, 0, 0);
           int randItem = UnityEngine.Random.Range(0, numbers.Length);
           block.CurrentNumber = numbers[randItem];
-          block.transform.position = new Vector3(positionNextPlayerBlock.transform.position.x, positionNextPlayerBlock.transform.position.y, 0);
+          // block.transform.position = new Vector3(positionNextPlayerBlock.transform.position.x, positionNextPlayerBlock.transform.position.y, 0);
+           
+          if(firstBlockInGame){
+               block.transform.position = new Vector3(-10f, positionNextPlayerBlock.transform.position.y, 0);
+               block.transform.DOLocalMove(new Vector3(positionNextPlayerBlock.transform.position.x, positionNextPlayerBlock.transform.position.y, 0),0.5f);
+               firstBlockInGame = false;
+          }
+
+           else{
+               block.transform.position = new Vector3(positionNextPlayerBlock.transform.position.x, positionNextPlayerBlock.transform.position.y, 0);
+          }
           block.transform.DOScale(1.2f, 0.25f);
           block.transform.SetParent(controlPanel.transform);
           return block;
