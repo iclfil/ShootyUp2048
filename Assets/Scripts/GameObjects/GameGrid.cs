@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using TMPro;
 using System;
+using Delaunay;
 
 public class GameGrid : MonoBehaviour {
      //public GameObject blackBlock;
@@ -459,12 +460,29 @@ public class GameGrid : MonoBehaviour {
      private IEnumerator UpdateLoseMove() {
           // yield return new WaitForSeconds(3f);
           DOTween.Kill(gameGrid.transform);
-          ui.EndGame();
+          DestructionBlock();
+          // ui.EndGame();
           Debug.Log("Игрок проиграл");
           yield break;
      }
 
-     private int GetYEmptyCell(int x) {
+    private void DestructionBlock()
+    {
+        foreach(Transform o in gameGrid.transform){
+             if(o.gameObject.name != "RedBackground"){
+        o.gameObject.AddComponent<Rigidbody2D>();
+        o.gameObject.AddComponent<PolygonCollider2D>();
+        var _explodable = o.gameObject.AddComponent<Explodable>();
+        _explodable.allowRuntimeFragmentation = true;
+     //    _explodable.extraPoints = 2;
+        _explodable.shatterType = Explodable.ShatterType.Voronoi;
+       _explodable.explode();
+        
+             }
+        }
+    }
+
+    private int GetYEmptyCell(int x) {
           int value = -1;
           for (int y = HEIGHT - 1; y >= 0; y--) {
                if (blocks[x, y] == null)
